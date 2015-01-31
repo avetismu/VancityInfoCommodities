@@ -6,6 +6,20 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="vancityinfo.vancityinfocommidities.Activity.CommoditiesViewer">
 
-    <
+    <android.support.v4.widget.SlidingPaneLayout
+        android:id="@+id/com_view_sliding_pane"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <!-- ListView Fragment-->
+        <FrameLayout
+            android:id="@+id/commodities_view_container_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <!-- Display Fragment -->
+
+    </android.support.v4.widget.SlidingPaneLayout>
+
 
 </RelativeLayout>

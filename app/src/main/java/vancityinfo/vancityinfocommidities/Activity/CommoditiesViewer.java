@@ -1,6 +1,7 @@
 package vancityinfo.vancityinfocommidities.Activity;
 
 import android.app.FragmentTransaction;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,7 +10,8 @@ import android.view.MenuItem;
 import vancityinfo.vancityinfocommidities.Fragment.CommoditiesList;
 import vancityinfo.vancityinfocommidities.R;
 
-public class CommoditiesViewer extends ActionBarActivity {
+public class CommoditiesViewer extends ActionBarActivity implements
+        CommoditiesList.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,5 +50,10 @@ public class CommoditiesViewer extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

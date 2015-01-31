@@ -7,6 +7,9 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +17,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import vancityinfo.vancityinfocommidities.Adapter.CommoditiesListAdapter;
+import vancityinfo.vancityinfocommidities.Model.Commodity;
 import vancityinfo.vancityinfocommidities.Parsers.CommoditiesParser;
 import vancityinfo.vancityinfocommidities.R;
 
@@ -33,7 +38,7 @@ public class CommoditiesList extends Fragment {
     private static volatile CommoditiesList instance;
 
     //Commodities to be Viewed
-    private ArrayList<?> mCommodities;
+    private ArrayList<Commodity> mCommodities;
 
     //ListView Selection Listener
     private OnFragmentInteractionListener mListener;
@@ -87,8 +92,19 @@ public class CommoditiesList extends Fragment {
 
         //initialise new commodities parser
         CommoditiesParser parser = CommoditiesParser.Instance();
-        mCommodities = parser.Parse(JSONString.toString());
 
+        try {
+            mCommodities = parser.Parse(JSONString.toString());
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        ListView listView = (ListView) getActivity().
+                findViewById(R.id.fragment_commodities_listView);
+
+        CommoditiesListAdapter adapter = new CommoditiesListAdapter(getActivity(), mCommodities);
+        listView.setAdapter(adapter);
 
     }
 

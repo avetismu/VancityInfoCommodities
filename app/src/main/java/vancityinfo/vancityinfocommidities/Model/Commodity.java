@@ -26,6 +26,32 @@ public class Commodity {
         mUrl = url;
 
     }
+
+    /* Getter Setters */
+
+    public String getmName() {
+        return mName;
+    }
+
+    public void setmName(String mName) {
+        this.mName = mName;
+    }
+
+    public String getmSymbol() {
+        return mSymbol;
+    }
+
+    public void setmSymbol(String mSymbol) {
+        this.mSymbol = mSymbol;
+    }
+
+    public String getmUrl() {
+        return mUrl;
+    }
+
+    public void setmUrl(String mUrl) {
+        this.mUrl = mUrl;
+    }
 }
 
 

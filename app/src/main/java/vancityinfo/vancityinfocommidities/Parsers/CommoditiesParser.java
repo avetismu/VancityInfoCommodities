@@ -1,5 +1,11 @@
 package vancityinfo.vancityinfocommidities.Parsers;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONStringer;
+import org.json.JSONTokener;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -37,10 +43,18 @@ public class CommoditiesParser {
      * @return produces an ArrayList of all the commodities that need to be displayed in fragment
      * CommoditiesList
      */
-    public ArrayList<Commodity> Parse(String response){
+    public ArrayList<Commodity> Parse(String response) throws JSONException{
         ArrayList<Commodity> comList = new ArrayList<Commodity>();
 
-        //TODO: Implement Parser
+        JSONTokener tokener = new JSONTokener(response);
+        JSONArray jsonArray = new JSONArray(tokener);
+        for(int i = 0; i<jsonArray.length(); i++){
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            comList.add(
+                new Commodity(jsonObject.getString("name"),
+                              jsonObject.getString("symbol"),
+                              jsonObject.getString("url")));
+        }
 
         return comList;
     }

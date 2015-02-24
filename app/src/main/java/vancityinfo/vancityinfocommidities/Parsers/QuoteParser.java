@@ -3,37 +3,36 @@ package vancityinfo.vancityinfocommidities.Parsers;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 import org.json.JSONTokener;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import vancityinfo.vancityinfocommidities.Model.Commodity;
+import vancityinfo.vancityinfocommidities.Model.Quote;
 
 /**
  * Implements Singleton Pattern
 */
-public class CommoditiesParser {
+public class QuoteParser {
 
     /* Fields */
 
-    private static volatile CommoditiesParser instance;
+    private static volatile QuoteParser instance;
 
     /* Constructors and Instance*/
 
     /**
      *
-     * @return Instance of CommoditiesParser
+     * @return Instance of QuoteParser
      */
-    public static CommoditiesParser Instance(){
+    public static QuoteParser Instance(){
         if (instance == null)
-            instance = new CommoditiesParser();
+            instance = new QuoteParser();
 
         return instance;
     }
 
-    public CommoditiesParser(){
+    public QuoteParser(){
         //empty constructor
     }
 
@@ -41,10 +40,10 @@ public class CommoditiesParser {
      *
      * @param response response from
      * @return produces an ArrayList of all the commodities that need to be displayed in fragment
-     * CommoditiesList
+     * QuoteList
      */
-    public ArrayList<Commodity> Parse(String response) throws JSONException{
-        ArrayList<Commodity> comList = new ArrayList<Commodity>();
+    public ArrayList<Quote> Parse(String response) throws JSONException{
+        ArrayList<Quote> comList = new ArrayList<Quote>();
 
         JSONTokener tokener = new JSONTokener(response);
         JSONArray jsonArray = new JSONArray(tokener);

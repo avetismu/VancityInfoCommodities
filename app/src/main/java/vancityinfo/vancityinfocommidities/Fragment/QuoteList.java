@@ -1,7 +1,6 @@
 package vancityinfo.vancityinfocommidities.Fragment;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,9 +16,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import vancityinfo.vancityinfocommidities.Adapter.CommoditiesListAdapter;
-import vancityinfo.vancityinfocommidities.Model.Commodity;
-import vancityinfo.vancityinfocommidities.Parsers.CommoditiesParser;
+import vancityinfo.vancityinfocommidities.Adapter.QuoteAdapter;
+import vancityinfo.vancityinfocommidities.Model.Quote;
+import vancityinfo.vancityinfocommidities.Parsers.QuoteParser;
 import vancityinfo.vancityinfocommidities.R;
 
 /**
@@ -27,43 +26,38 @@ import vancityinfo.vancityinfocommidities.R;
  *
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CommoditiesList.OnFragmentInteractionListener} interface
+ * {@link QuoteList.ListViewSelectable} interface
  * to handle interaction events.
- * Use the {@link CommoditiesList#Instance} factory method to
+ * Use the {@link QuoteList#getInstance} factory method to
  * get an instance of this fragment.
  */
-public class CommoditiesList extends Fragment {
+public class QuoteList extends Fragment {
 
     //Singleton Instance
-    private static volatile CommoditiesList instance;
+    private static volatile QuoteList instance;
 
     //Commodities to be Viewed
-    private ArrayList<Commodity> mCommodities;
+    private ArrayList<Quote> mCommodities;
 
     //ListView Selection Listener
-    private OnFragmentInteractionListener mListener;
+    private ListViewSelectable mListener;
 
-    public static CommoditiesList Instance() {
+    public static QuoteList getInstance() {
         if(instance == null)
-         instance = new CommoditiesList();
+         instance = new QuoteList();
 
         return instance;
     }
 
-    public CommoditiesList() {
+    public QuoteList() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_commodities_list, container, false);
+        return inflater.inflate(R.layout.fragment_quote_list, container, false);
     }
 
     @Override
@@ -91,7 +85,7 @@ public class CommoditiesList extends Fragment {
         }
 
         //initialise new commodities parser
-        CommoditiesParser parser = CommoditiesParser.Instance();
+        QuoteParser parser = QuoteParser.Instance();
 
         try {
             mCommodities = parser.Parse(JSONString.toString());
@@ -101,9 +95,9 @@ public class CommoditiesList extends Fragment {
         }
 
         ListView listView = (ListView) getActivity().
-                findViewById(R.id.fragment_commodities_listView);
+                findViewById(R.id.fragment_quote_list_listView);
 
-        CommoditiesListAdapter adapter = new CommoditiesListAdapter(getActivity(), mCommodities);
+        QuoteAdapter adapter = new QuoteAdapter(getActivity(), mCommodities);
         listView.setAdapter(adapter);
 
     }
@@ -112,7 +106,7 @@ public class CommoditiesList extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (ListViewSelectable) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -135,9 +129,10 @@ public class CommoditiesList extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+    public interface ListViewSelectable {
+
+        public void onListViewItemSelected(Quote quote);
+
     }
 
 }

@@ -8,4 +8,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_commodities_view">CommoditiesView</string>
 
+    <!-- Quote Display -->
+    <string name="quote_display_price_currency_daily_high_text">Daily High : </string>
+    <string name="quote_display_price_currency_daily_low_text">Daily Low : </string>
+
 </resources>

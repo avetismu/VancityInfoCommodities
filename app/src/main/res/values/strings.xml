@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">VancityInfo Commidities</string>
-    <string name="title_activity_commodities_viewer">CommoditiesViewer</string>
+    <string name="title_activity_quote_viewer">Quote Viewer</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.json.JSONException;
@@ -26,21 +27,21 @@ import vancityinfo.vancityinfocommidities.R;
  *
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link QuoteList.ListViewSelectable} interface
+ * {@link vancityinfo.vancityinfocommidities.Fragment.QuoteList.ListViewSelected} interface
  * to handle interaction events.
  * Use the {@link QuoteList#getInstance} factory method to
  * get an instance of this fragment.
  */
-public class QuoteList extends Fragment {
+public class QuoteList extends Fragment{
 
     //Singleton Instance
     private static volatile QuoteList instance;
 
     //Commodities to be Viewed
-    private ArrayList<Quote> mCommodities;
+    private ArrayList<Quote> mQuotes;
 
     //ListView Selection Listener
-    private ListViewSelectable mListener;
+    private ListViewSelected mListener;
 
     public static QuoteList getInstance() {
         if(instance == null)
@@ -88,7 +89,7 @@ public class QuoteList extends Fragment {
         QuoteParser parser = QuoteParser.Instance();
 
         try {
-            mCommodities = parser.Parse(JSONString.toString());
+            mQuotes = parser.Parse(JSONString.toString());
         }
         catch(JSONException e){
             e.printStackTrace();
@@ -97,7 +98,14 @@ public class QuoteList extends Fragment {
         ListView listView = (ListView) getActivity().
                 findViewById(R.id.fragment_quote_list_listView);
 
-        QuoteAdapter adapter = new QuoteAdapter(getActivity(), mCommodities);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mListener.onListViewItemSelected(mQuotes.get(position));
+            }
+        });
+
+                QuoteAdapter adapter = new QuoteAdapter(getActivity(), mQuotes);
         listView.setAdapter(adapter);
 
     }
@@ -106,7 +114,7 @@ public class QuoteList extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (ListViewSelectable) activity;
+            mListener = (ListViewSelected) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -129,10 +137,12 @@ public class QuoteList extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface ListViewSelectable {
+    public interface ListViewSelected {
 
         public void onListViewItemSelected(Quote quote);
 
     }
+
+
 
 }

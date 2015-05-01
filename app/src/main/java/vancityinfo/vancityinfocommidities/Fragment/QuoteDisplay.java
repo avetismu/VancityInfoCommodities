@@ -28,6 +28,10 @@ public class QuoteDisplay extends Fragment {
 
     private Quote mQuote;
 
+    private TextView mPrice;
+    private TextView mName;
+    private TextView mSymbol;
+
     /* Fragment States */
 
     public static QuoteDisplay getInstance(){
@@ -56,28 +60,33 @@ public class QuoteDisplay extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         //HELPER METHOD
-        renderUI();
-
+        setupUI();
     }
 
     /* Helper Methods */
+
+    /**
+     * setup UI
+     * includes TextView mName, Symbol, Price
+     */
+    private void setupUI(){
+        mName  = (TextView) getActivity().findViewById(R.id.quote_display_name);
+        mSymbol = (TextView) getActivity().findViewById(R.id.quote_display_symbol);
+        mPrice = (TextView) getActivity().findViewById(R.id.quote_display_price);
+    }
 
     /**
      * display the values of mQuote
      */
     private void renderUI(){
 
-        TextView name  = (TextView) getActivity().findViewById(R.id.quote_display_name);
-        TextView symbol = (TextView) getActivity().findViewById(R.id.quote_display_symbol);
-        TextView price = (TextView) getActivity().findViewById(R.id.quote_display_price);
-
         try{
-            name.setText(mQuote.getName());
-            symbol.setText(mQuote.getSymbol());
+            mName.setText(mQuote.getName());
+            mSymbol.setText(mQuote.getSymbol());
         }
         //uninitialised mQuote
         catch(NullPointerException e){
-            Log.e("QuoteDisplay.renderUI()", e.getMessage());
+            Log.e("Null Pointer Exception", null);
         }
 
         //Quote is a Currency
@@ -85,7 +94,7 @@ public class QuoteDisplay extends Fragment {
 
             Currency currency = (Currency) mQuote;
 
-            price.setText(R.string.quote_display_price_currency_daily_high_text
+            mPrice.setText(R.string.quote_display_price_currency_daily_high_text
                     + Double.toString(currency.getDailyHigh()) + "\n"
                     + R.string.quote_display_price_currency_daily_low_text +
                     Double.toString(currency.getDailyLow()));

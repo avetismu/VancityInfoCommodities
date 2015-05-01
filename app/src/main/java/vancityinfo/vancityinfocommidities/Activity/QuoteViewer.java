@@ -5,15 +5,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
-
 import vancityinfo.vancityinfocommidities.Fragment.QuoteList;
 import vancityinfo.vancityinfocommidities.Fragment.QuoteDisplay;
 import vancityinfo.vancityinfocommidities.Model.Quote;
 import vancityinfo.vancityinfocommidities.R;
+import android.support.v4.widget.SlidingPaneLayout;
 
 public class QuoteViewer extends ActionBarActivity implements
-        QuoteList.ListViewSelectable {
+        QuoteList.ListViewSelected {
 
     //instance of QuoteDisplay
     private QuoteDisplay Display;
@@ -22,6 +21,8 @@ public class QuoteViewer extends ActionBarActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commodities_viewer);
+
+        setTitle(R.string.title_activity_quote_viewer);
 
         /* Commodities List Fragment Commit */
 
@@ -36,6 +37,11 @@ public class QuoteViewer extends ActionBarActivity implements
         catch(Exception e){
             Log.e("Commodities List", e.getMessage());
         }
+
+
+        //sets the SlidingPanelayout to open
+        SlidingPaneLayout slidingPaneLayout = (SlidingPaneLayout) findViewById(R.id.com_view_sliding_pane);
+        slidingPaneLayout.openPane();
 
     }
 
@@ -65,7 +71,7 @@ public class QuoteViewer extends ActionBarActivity implements
             Display.setCommodity(quote);
         }
         catch(Exception e){
-            Log.e("Commodities Display", e.getMessage());
+            e.printStackTrace();
         }
 
     }

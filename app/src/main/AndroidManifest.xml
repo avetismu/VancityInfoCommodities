@@ -9,7 +9,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Activity.QuoteViewer"
-            android:label="@string/title_activity_commodities_viewer" >
+            android:label="@string/title_activity_quote_viewer"
+            android:exported="true">
         </activity>
     </application>
 

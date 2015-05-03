@@ -24,19 +24,19 @@ public class QuoteViewer extends ActionBarActivity implements
 
         setTitle(R.string.title_activity_quote_viewer);
 
-        /* Commodities List Fragment Commit */
+        /* Commodities List and Display Fragment Commit */
 
-        try {
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
             QuoteList quoteList = QuoteList.getInstance();
+            Display = QuoteDisplay.getInstance();
 
             fragmentTransaction.add(R.id.commodities_view_container_list, quoteList);
+            fragmentTransaction.add(R.id.commodities_view_container_display, Display);
+
             fragmentTransaction.commit();
-        }
-        catch(Exception e){
-            Log.e("Commodities List", e.getMessage());
-        }
+
+
 
 
         //sets the SlidingPanelayout to open
@@ -58,17 +58,10 @@ public class QuoteViewer extends ActionBarActivity implements
     @Override
     public void onListViewItemSelected(Quote quote) {
 
-        //instantiate if not instantiated
-        if (Display == null)
-            Display = QuoteDisplay.getInstance();
 
-        /* Commodities Display Fragment Commit */
+        //set quote to be displayed
         try {
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.commodities_view_container_display, Display);
-            fragmentTransaction.commit();
-
-            Display.setCommodity(quote);
+            Display.setQuote(quote);
         }
         catch(Exception e){
             e.printStackTrace();

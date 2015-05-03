@@ -1,6 +1,6 @@
 package vancityinfo.vancityinfocommidities.Model;
 
-public abstract class Quote {
+public class Quote {
 
     /* Fields */
     private String mName;

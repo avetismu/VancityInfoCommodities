@@ -1,6 +1,9 @@
 package vancityinfo.vancityinfocommidities.Fragment;
 
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -56,10 +59,9 @@ public class QuoteDisplay extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onStart(){
+        super.onStart();
 
-        //HELPER METHOD
         setupUI();
     }
 
@@ -70,36 +72,50 @@ public class QuoteDisplay extends Fragment {
      * includes TextView mName, Symbol, Price
      */
     private void setupUI(){
-        mName  = (TextView) getActivity().findViewById(R.id.quote_display_name);
-        mSymbol = (TextView) getActivity().findViewById(R.id.quote_display_symbol);
-        mPrice = (TextView) getActivity().findViewById(R.id.quote_display_price);
+        if(mName == null)
+            mName  = (TextView) getActivity().findViewById(R.id.quote_display_name);
+        if(mSymbol == null)
+            mSymbol = (TextView) getActivity().findViewById(R.id.quote_display_symbol);
+        if(mPrice == null)
+            mPrice = (TextView) getActivity().findViewById(R.id.quote_display_price);
     }
 
     /**
      * display the values of mQuote
      */
-    private void renderUI(){
+    public void renderUI(){
 
-        try{
-            mName.setText(mQuote.getName());
-            mSymbol.setText(mQuote.getSymbol());
+        if(getActivity() != null) {
+            try {
+                mName.setText(mQuote.getName());
+                mSymbol.setText(mQuote.getSymbol());
+            }
+            //uninitialised mQuote
+            catch (NullPointerException e) {
+                Log.e("Null Pointer Exception", null);
+            }
+
+            ConnectivityManager connMgr = (ConnectivityManager)
+                    getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+            if (networkInfo != null && networkInfo.isConnected()) {
+                // fetch data
+            } else {
+                // display error
+            }
+
+
+            //Quote is a Currency
+            /*if (mQuote instanceof Currency) {
+
+                Currency currency = (Currency) mQuote;
+
+                mPrice.setText(R.string.quote_display_price_currency_daily_high_text
+                        + Double.toString(currency.getDailyHigh()) + "\n"
+                        + R.string.quote_display_price_currency_daily_low_text +
+                        Double.toString(currency.getDailyLow()));
+            }*/
         }
-        //uninitialised mQuote
-        catch(NullPointerException e){
-            Log.e("Null Pointer Exception", null);
-        }
-
-        //Quote is a Currency
-        if(mQuote instanceof Currency){
-
-            Currency currency = (Currency) mQuote;
-
-            mPrice.setText(R.string.quote_display_price_currency_daily_high_text
-                    + Double.toString(currency.getDailyHigh()) + "\n"
-                    + R.string.quote_display_price_currency_daily_low_text +
-                    Double.toString(currency.getDailyLow()));
-        }
-
     }
 
     /* Getter Setters */
@@ -107,17 +123,25 @@ public class QuoteDisplay extends Fragment {
     /**
      * @param quote Quote to be displayed
      */
-    public void setCommodity(Quote quote){
+    public void setQuote(Quote quote){
         this.mQuote = quote;
 
-        //HELPER METHOD
         renderUI();
     }
 
     /* Nested Classes and Interfaces */
 
-    //used to fetch data from YQL
+    //used to fetch commodity data from YQL
     private class CommodityData extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            return null;
+        }
+    }
+
+    //used to fetch currency data from YQL
+    private class CurrencyData extends AsyncTask<Void, Void, Void>{
 
         @Override
         protected Void doInBackground(Void... params) {

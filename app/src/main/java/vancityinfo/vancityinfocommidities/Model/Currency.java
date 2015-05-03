@@ -25,6 +25,15 @@ public class Currency extends Quote{
         mDailyLow = dailyLow;
     }
 
+    /**
+     * @param name common name of commodity
+     * @param symbol trading symbol
+     * @param url YQL url used to fetch JSON file
+     */
+    public Currency(String name, String symbol, String url){
+        super(name, symbol, url);
+    }
+
     /* Getter Setter */
 
     public double getDailyHigh() {

@@ -8,6 +8,7 @@ import org.json.JSONTokener;
 import java.util.ArrayList;
 
 import vancityinfo.vancityinfocommidities.Model.Commodity;
+import vancityinfo.vancityinfocommidities.Model.Currency;
 import vancityinfo.vancityinfocommidities.Model.Quote;
 
 /**
@@ -43,19 +44,29 @@ public class QuoteParser {
      * QuoteList
      */
     public ArrayList<Quote> Parse(String response) throws JSONException{
-        ArrayList<Quote> comList = new ArrayList<Quote>();
+        ArrayList<Quote> quoteList = new ArrayList<Quote>();
 
         JSONTokener tokener = new JSONTokener(response);
         JSONArray jsonArray = new JSONArray(tokener);
         for(int i = 0; i<jsonArray.length(); i++){
             JSONObject jsonObject = jsonArray.getJSONObject(i);
-            comList.add(
-                new Commodity(jsonObject.getString("name"),
-                              jsonObject.getString("symbol"),
-                              jsonObject.getString("url")));
+            switch (jsonObject.getInt("type")){
+                case 0:
+                    quoteList.add(
+                            new Commodity(jsonObject.getString("name"),
+                                    jsonObject.getString("symbol"),
+                                    jsonObject.getString("url")));
+                    break;
+                case 1:
+                    quoteList.add(
+                            new Currency(jsonObject.getString("name"),
+                                    jsonObject.getString("symbol"),
+                                    jsonObject.getString("url")));
+            }
+
         }
 
-        return comList;
+        return quoteList;
     }
 
 

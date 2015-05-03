@@ -93,6 +93,7 @@ public class QuoteList extends Fragment{
         }
         catch(JSONException e){
             e.printStackTrace();
+            mQuotes = new ArrayList<Quote>();
         }
 
         ListView listView = (ListView) getActivity().

@@ -39,8 +39,8 @@ public class QuoteParser {
 
     /**
      *
-     * @param response response from
-     * @return produces an ArrayList of all the commodities that need to be displayed in fragment
+     * @param response response from input stream
+     * @return produces an ArrayList of all the commodities_en that need to be displayed in fragment
      * QuoteList
      */
     public ArrayList<Quote> Parse(String response) throws JSONException{
@@ -55,13 +55,16 @@ public class QuoteParser {
                     quoteList.add(
                             new Commodity(jsonObject.getString("name"),
                                     jsonObject.getString("symbol"),
-                                    jsonObject.getString("url")));
+                                    jsonObject.getString("url"),
+                                    jsonObject.getInt("col"),
+                                    jsonObject.getString("units")));
                     break;
                 case 1:
                     quoteList.add(
                             new Currency(jsonObject.getString("name"),
                                     jsonObject.getString("symbol"),
-                                    jsonObject.getString("url")));
+                                    jsonObject.getString("url"),
+                                    jsonObject.getInt("col")));
             }
 
         }

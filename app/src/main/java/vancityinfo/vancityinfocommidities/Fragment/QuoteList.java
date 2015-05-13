@@ -68,7 +68,7 @@ public class QuoteList extends Fragment{
         InputStream ins = getResources().openRawResource(
                 getResources().
                         getIdentifier(
-                                "raw/commodities",
+                                getActivity().getString(R.string.commodities_path),
                                 "raw",
                                 getActivity().getPackageName()));
 
@@ -85,7 +85,7 @@ public class QuoteList extends Fragment{
             e.printStackTrace();
         }
 
-        //initialise new commodities parser
+        //initialise new commodities_en parser
         QuoteParser parser = QuoteParser.Instance();
 
         try {

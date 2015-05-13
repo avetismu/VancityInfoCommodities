@@ -18,9 +18,10 @@ public class Currency extends Quote{
      * @param url YQL url used to fetch JSON file
      * @param dailyHigh daily high price
      * @param dailyLow daily low price
+     * @param col column in data JSONArray where value is fetched
      */
-    public Currency(String name, String symbol, String url, double dailyHigh, double dailyLow){
-        super(name, symbol, url);
+    public Currency(String name, String symbol, String url, double dailyHigh, double dailyLow, int col){
+        super(name, symbol, url, col);
         mDailyHigh = dailyHigh;
         mDailyLow = dailyLow;
     }
@@ -29,9 +30,10 @@ public class Currency extends Quote{
      * @param name common name of commodity
      * @param symbol trading symbol
      * @param url YQL url used to fetch JSON file
+     * @param col column in data JSONArray where value is fetched
      */
-    public Currency(String name, String symbol, String url){
-        super(name, symbol, url);
+    public Currency(String name, String symbol, String url, int col){
+        super(name, symbol, url, col);
     }
 
     /* Getter Setter */

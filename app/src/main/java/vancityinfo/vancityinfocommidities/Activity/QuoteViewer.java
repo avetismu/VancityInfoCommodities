@@ -22,7 +22,7 @@ public class QuoteViewer extends ActionBarActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commodities_viewer);
 
-        setTitle(R.string.title_activity_quote_viewer);
+        setTitle(R.string.app_name);
 
         /* Commodities List and Display Fragment Commit */
 
@@ -32,7 +32,7 @@ public class QuoteViewer extends ActionBarActivity implements
             Display = QuoteDisplay.getInstance();
 
             fragmentTransaction.add(R.id.commodities_view_container_list, quoteList);
-            fragmentTransaction.add(R.id.commodities_view_container_display, Display);
+            fragmentTransaction.add(R.id.commodities_view_container_display, Display, "display");
 
             fragmentTransaction.commit();
 

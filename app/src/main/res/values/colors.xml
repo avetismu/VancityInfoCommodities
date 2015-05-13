@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="price_change_positive">#99CC00</color>
+    <color name="price_change_negative">#FF4444</color>
+    <color name="white">#FFFFFF</color>
+    <color name="in_light_0">#e8eaf6</color>
+    <color name="in_light_1">#c5cae9</color>
+    <color name="in_light_2">#9fa8da</color>
+    <color name="in_light_3">#7986cb</color>
+    <color name="in_light_4">#5c6bc0</color>
+    <color name="in_regular">#3f51b5</color>
+    <color name="in_dark_0">#3949ab</color>
+    <color name="in_dark_1">#303f9f</color>
+    <color name="in_dark_2">#283593</color>
+</resources>

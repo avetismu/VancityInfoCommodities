@@ -3,6 +3,45 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/mActionBar</item>
+        <item name="android:textViewStyle">@style/TextView</item>
+        <item name="android:buttonStyle">@style/Button</item>
+        <item name="android:imageButtonStyle">@style/ImageButton</item>
+
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/mActionBar</item>
+
+    </style>
+
+    <style name="mActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/in_regular</item>
+
+        <!-- Support library compatibility -->
+        <item name="background">@color/in_regular</item>
+    </style>
+
+    <style name="QuoteName" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textColor">@color/in_dark_0</item>
+    </style>
+
+    <style name="QuoteSymbol" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textColor">@color/in_light_4</item>
+    </style>
+
+    <style name="TextView" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
+
+    <style name="Button" parent="Base.Widget.AppCompat.ActionButton">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/in_regular</item>
+    </style>
+
+    <style name="ImageButton" parent="Base.Widget.AppCompat.ActionButton">
+        <item name="android:background">@color/in_regular</item>
     </style>
 
 </resources>

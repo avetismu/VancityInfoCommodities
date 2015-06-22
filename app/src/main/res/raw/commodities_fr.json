@@ -1,0 +1,75 @@
+[
+  {
+    "name": "Or",
+    "symbol": "LBMA Gold Fixing P.M.",
+    "url": "https:\/\/www.quandl.com\/api\/v1\/datasets\/OFDP\/GOLD_2.json",
+    "col": 1,
+    "units":"onces troy",
+    "type": 0
+  },
+  {
+    "name": "Argent",
+    "symbol": "LBMA Silver Fixings",
+    "url": "https:\/\/www.quandl.com\/api\/v1\/datasets\/OFDP\/SILVER_5.json",
+    "col": 1,
+    "units":"onces troy",
+    "type":0
+
+  },
+  {
+    "name": "Platine",
+    "symbol": "LPPM Platinum P.M.",
+    "url": "http:\/\/www.quandl.com\/api\/v1\/datasets\/LPPM\/PLAT.json",
+    "col": 2,
+    "units":"onces troy",
+    "type": 0
+  },
+  {
+    "name": "Cuivre",
+    "symbol": "LME Copper",
+    "url": "http:\/\/www.quandl.com\/api\/v1\/datasets\/OFDP\/COPPER_6.json",
+    "col": 3,
+    "units":"tonnes",
+    "type": 0
+  },
+  {
+    "name": "Aluminium",
+    "symbol": "LME Aluminium",
+    "url": "http:\/\/www.quandl.com\/api\/v1\/datasets\/OFDP\/ALUMINIUMALLOY_11.json",
+    "col": 3,
+    "units":"tonnes",
+    "type": 0
+  },
+  {
+    "name": "Acier",
+    "symbol": "LME Steel Billet",
+    "url": "https:\/\/www.quandl.com\/api\/v1\/datasets\/OFDP\/STEELBILLET_46.json",
+    "col": 3,
+    "units":"tonnes",
+    "type": 0
+  },
+  {
+    "name": "Fer",
+    "symbol": "CFR Tianjin China",
+    "url": "http:\/\/www.quandl.com\/api\/v1\/datasets\/WSJ\/FE_TJN.json",
+    "col": 1,
+    "units":"tonnes",
+    "type": 0
+  },
+  {
+    "name": "Zinc",
+    "symbol": "LME Zinc",
+    "url": "http:\/\/www.quandl.com\/api\/v1\/datasets\/OFDP\/ZINC_26.json",
+    "col": 3,
+    "units":"tonnes",
+    "type": 0
+  },
+  {
+    "name": "Étain",
+    "symbol": "LME Tin",
+    "url": "http:\/\/www.quandl.com\/api\/v1\/datasets\/OFDP\/TIN_36.json",
+    "col": 3,
+    "units":"tonnes",
+    "type": 0
+  }
+]

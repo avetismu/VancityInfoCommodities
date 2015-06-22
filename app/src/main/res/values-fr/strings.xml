@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="commodities_path">commodities_fr</string>
+    <string name="app_name">VI Mat. Premières</string>
+    <string name="action_settings">Préferences</string>
+    <string name="gold">Or</string>
+    <string name="silver">Argent</string>
+    <string name="platinum">Platine</string>
+
+    <!-- Quote Display -->
+    <string name="quote_display_price_commodity_daily_text">Cours Quotidien : </string>
+    <string name="quote_display_price_currency_daily_high_text">Haut Quotidien: </string>
+    <string name="quote_display_price_currency_daily_low_text">Bas Quotidien: </string>
+    <string name="quote_display_start_text">Choisissez une date initiale</string>
+    <string name="quote_display_calc_text">Specifiez le poids</string>
+    <string name="quote_display_eval_text">Évaluer</string>
+    <string name="error_wrong_weight_input">Le poids doit être un nombre</string>
+    <string name="error_daily_maximum_requests">Vous êtes à votre accès maximum quotidien</string>
+    <string name="copper">Cuivre</string>
+    <string-array name="calc_spinner_array_weight_precious_metals">
+        <item>onces troy</item>
+        <item>grammes</item>
+        <item>livres É.-U</item>
+        <item>kilogrammes</item>
+        <item>tonnes</item>
+    </string-array>
+    <string name="quote_display_result_text">La valeur totale est de </string>
+    <string name="aluminium"></string>
+    <string name="steel">Acier</string>
+    <string name="tin">Étain</string>
+    <string name="iron">Fer</string>
+    <string name="quote_display_date_text">Choisissez une date initiale et une date finale</string>
+
+
+</resources>

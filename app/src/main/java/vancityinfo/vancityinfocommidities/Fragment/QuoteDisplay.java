@@ -31,6 +31,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidplot.Plot;
+import com.androidplot.ui.AnchorPosition;
+import com.androidplot.ui.XLayoutStyle;
+import com.androidplot.ui.YLayoutStyle;
+import com.androidplot.xy.BoundaryMode;
 import com.androidplot.xy.LineAndPointFormatter;
 import com.androidplot.xy.PointLabelFormatter;
 import com.androidplot.xy.SimpleXYSeries;
@@ -77,7 +81,7 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
     /* Fields */
     private static volatile QuoteDisplay instance;
 
-    private Quote mQuote;
+    private static Quote mQuote;
 
     private LinearLayout mLayout;
     private RelativeLayout mCalcLayout;
@@ -145,6 +149,10 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
         mCalculator = new Calculator(getActivity());
 
         setupUI();
+
+        if(mQuote != null){
+            renderUI();
+        }
     }
 
     /* Helper Methods */
@@ -154,30 +162,28 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
      * includes TextView mName, Symbol, Price
      */
     private void setupUI(){
-        if(mLayout == null)
             mLayout = (LinearLayout) getActivity().findViewById(R.id.quote_display_layout);
-        if(mCalcLayout == null)
             mCalcLayout = (RelativeLayout) getActivity().findViewById(R.id.quote_display_layout_calculator);
-        if(mName == null)
+
             mName  = (TextView) getActivity().findViewById(R.id.quote_display_name);
-        if(mDesc == null)
+
             mDesc  = (TextView) getActivity().findViewById(R.id.quote_display_description);
-        if(mSymbol == null)
+
             mSymbol = (TextView) getActivity().findViewById(R.id.quote_display_symbol);
-        if(mPrice == null)
+
             mPrice = (TextView) getActivity().findViewById(R.id.quote_display_price);
-        if(mChange == null)
+
             mChange = (TextView) getActivity().findViewById(R.id.quote_display_change);
-        if(mResult == null)
+
             mResult = (TextView) getActivity().findViewById(R.id.quote_display_result);
-        if(mWeight == null)
+
             mWeight = (EditText) getActivity().findViewById(R.id.quote_display_calc_input);
-        if(mUnits == null){
+
             mUnits = (Spinner) getActivity().findViewById(R.id.quote_display_calc_spinner);
-        }
-        if(mFineness == null)
+
+
             mFineness = (Spinner) getActivity().findViewById(R.id.quote_display_calc_fineness);
-        if(mCalculate == null){
+
             mCalculate = (Button) getActivity().findViewById(R.id.quote_display_calc_button);
             mCalculate.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -269,10 +275,12 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
                             );
                         }
                     }
+
+                    mResult.setVisibility(View.VISIBLE);
                 }
             });
-        }
-        if(mStartDate == null){
+
+
             mStartDate = (Button) getActivity().findViewById(R.id.quote_display_start_date_picker);
             mStartDate.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -284,8 +292,8 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
                     newFragment.show(getActivity().getFragmentManager(), "timePicker");
                 }
             });
-        }
-        if(mEndDate == null){
+
+
             mEndDate = (Button) getActivity().findViewById(R.id.quote_display_end_date_picker);
             mEndDate.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -297,8 +305,8 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
                     newFragment.show(getActivity().getFragmentManager(), "timePicker");
                 }
             });
-        }
-        if(mRefresh == null) {
+
+
             mRefresh = (ImageButton) getActivity().findViewById(R.id.quote_display_refresh);
             mRefresh.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -306,21 +314,31 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
                         fetchData();
                 }
             });
-        }
-        if(mPBar == null)
-            mPBar = (ProgressBar) getActivity().findViewById(R.id.quote_display_progress);
-        if(mPlot == null) {
 
+
+            mPBar = (ProgressBar) getActivity().findViewById(R.id.quote_display_progress);
+
+
+            //assigns plot to field
             mPlot = (XYPlot) getActivity().findViewById(R.id.quote_display_plot);
 
+            //sets the grid colour to white
             mPlot.getGraphWidget().getGridBackgroundPaint().setColor(
                     getActivity().getResources().getColor(R.color.white)
             );
+            //sets the backgrounds to the theme colour
             mPlot.getBackgroundPaint().setColor(
                     getActivity().getResources().getColor(R.color.background_material_light)
             );
             mPlot.getGraphWidget().getBackgroundPaint().setColor(
                     getActivity().getResources().getColor(R.color.background_material_light)
+            );
+            //sets the colour of the domain and range labels and their ticks
+            mPlot.getGraphWidget().getDomainLabelPaint().setColor(
+                    getActivity().getResources().getColor(R.color.in_dark_0)
+            );
+            mPlot.getGraphWidget().getRangeLabelPaint().setColor(
+                    getActivity().getResources().getColor(R.color.in_dark_0)
             );
             mPlot.getDomainLabelWidget().getLabelPaint().setColor(
                     getActivity().getResources().getColor(R.color.in_dark_2)
@@ -329,15 +347,21 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
                     getActivity().getResources().getColor(R.color.in_dark_2)
             );
 
+            //removes the legend from the black
+            mPlot.getLayoutManager().remove(mPlot.getLegendWidget());
+
+            //blackens the domain and range lines
             mPlot.getGraphWidget().getDomainOriginLinePaint().setColor(Color.BLACK);
             mPlot.getGraphWidget().getRangeOriginLinePaint().setColor(Color.BLACK);
 
+            //erases borders
             mPlot.setBorderStyle(Plot.BorderStyle.SQUARE, null, null);
             mPlot.getBorderPaint().setStrokeWidth(0);
             mPlot.getBorderPaint().setAntiAlias(false);
             mPlot.getBorderPaint().setColor(
                     getActivity().getResources().getColor(R.color.background_material_light)
             );
+
 
             // Create a formatter to use for drawing a series using LineAndPointRenderer:
             mFormatter = new LineAndPointFormatter(
@@ -347,9 +371,12 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
                     new PointLabelFormatter(
                             getActivity().getResources().getColor(R.color.in_dark_2)
                     ));
+            //sets padding to match labels
+            mPlot.getGraphWidget().setPadding(0,
+                    10,
+                    30,
+                    10);
 
-            mPlot.getGraphWidget().setPaddingRight(2);
-        }
     }
 
     /**
@@ -360,11 +387,13 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
         if(getActivity() != null) {
             try {
 
-                //assign text values for Name and Symbol
+                //assign text values for Name, Symbol, Description
                 mCalcLayout.setVisibility(View.GONE);
                 mName.setText(mQuote.getName());
                 mSymbol.setText(mQuote.getSymbol());
                 mDesc.setText(mQuote.getDesc());
+
+                //sets change percentage and assigns appropriate colour
                 mChange.setText(
                         getActivity().getString(R.string.quote_display_change) +
                                 String.valueOf(
@@ -379,9 +408,13 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
                 else{
                     mChange.setTextColor(getActivity().getResources().getColor(R.color.primary_text_default_material_light));
                 }
+
+                //hides the result
                 mResult.setVisibility(View.GONE);
+                //sets the buttons' text
                 mStartDate.setText(DateFormatter.formatDate(trimStart));
                 mEndDate.setText(DateFormatter.formatDate(trimEnd));
+                //hides fineness
                 mFineness.setVisibility(View.GONE);
 
             }
@@ -392,23 +425,29 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
 
             //Quote is a Commodity
             if(mQuote instanceof Commodity){
+                //type cast to commodity
                 Commodity commodity = (Commodity) mQuote;
+                //makes the calculator visible
                 mCalcLayout.setVisibility(View.VISIBLE);
+                //sets the price
                 mPrice.setText(
                         getActivity().getResources().getString(R.string.quote_display_price_commodity_daily_text) +
                                 Double.toString(commodity.getPrice()));
 
+                //assigns the weight spinner array
                 ArrayAdapter<String> weightAdapter = new ArrayAdapter<String>(getActivity(),
                         R.layout.support_simple_spinner_dropdown_item,
                         getActivity().getResources().getStringArray(R.array.calc_spinner_array_weight_precious_metals));
                 mUnits.setAdapter(weightAdapter);
 
-
+                //if Gold
                 if(mQuote.getName().equalsIgnoreCase(getActivity().getResources().
                         getString(R.string.gold))){
 
+                    //make fineness visible
                     mFineness.setVisibility(View.VISIBLE);
 
+                    //assign gold fineness array to spinner
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                             getActivity(),
                             R.layout.support_simple_spinner_dropdown_item,
@@ -416,11 +455,14 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
                                     getStringArray(R.array.calc_spinner_array_finess_gold));
                     mFineness.setAdapter(adapter);
                 }
+                //if Silver
                 else if(mQuote.getName().equalsIgnoreCase(getActivity().getResources().
                         getString(R.string.silver))){
 
+                    //makes fineness visible
                     mFineness.setVisibility(View.VISIBLE);
 
+                    //asigns silver fineness array to spinner
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                             getActivity(),
                             R.layout.support_simple_spinner_dropdown_item,
@@ -428,11 +470,14 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
                                     getStringArray(R.array.calc_spinner_array_finess_silver));
                     mFineness.setAdapter(adapter);
                 }
+                //if Platinum
                 else if(mQuote.getName().equalsIgnoreCase(getActivity().getResources().
                         getString(R.string.platinum))){
 
+                    //makes fineness visible
                     mFineness.setVisibility(View.VISIBLE);
 
+                    //assigns platinum fineness array to spinner
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                             getActivity(),
                             R.layout.support_simple_spinner_dropdown_item,
@@ -453,6 +498,9 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
                         Double.toString(currency.getDailyLow()));
             }*/
 
+            /* Plot Data */
+
+            //iterates plot and creates two arraylists of doubles: dates and corresponding values
             Iterator it = mQuote.getPlotData().entrySet().iterator();
             ArrayList dates = new ArrayList<Double>();
             ArrayList values = new ArrayList<Double>();
@@ -464,16 +512,26 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
                 it.remove(); // avoids a ConcurrentModificationException
             }
 
-            if(mSeries != null)
-                mPlot.removeSeries(mSeries);
-
             // create our series from our array of nums:
             mSeries = new SimpleXYSeries(dates, values, mQuote.getName());
 
+            //clears previous series in plot
+            mPlot.clear();
+
+            //adds new series to plot
             mPlot.addSeries(mSeries, mFormatter);
 
             // draw a domain tick for each year:
             mPlot.setDomainStep(XYStepMode.SUBDIVIDE, dates.size());
+
+
+           /* mPlot.position(
+                    mPlot.getGraphWidget(),
+                    0,
+                    XLayoutStyle.ABSOLUTE_FROM_LEFT,
+                    0,
+                    YLayoutStyle.RELATIVE_TO_CENTER,
+                    AnchorPosition.LEFT_MIDDLE);*/
 
             // customize our domain/range labels
             mPlot.setDomainLabel("Time");
@@ -487,7 +545,7 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
                 // create a simple date format that draws on the year portion of our timestamp.
                 // see http://download.oracle.com/javase/1.4.2/docs/api/java/text/SimpleDateFormat.html
                 // for a full description of SimpleDateFormat.
-                private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                private SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
 
                 @Override
                 public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
@@ -503,6 +561,8 @@ public class QuoteDisplay extends Fragment implements DatePickerFragment.DatePic
 
                 }
             });
+
+            mPlot.redraw();
 
             //make all subviews visible
             //HELPER METHOD

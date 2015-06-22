@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+
+import vancityinfo.vancityinfocommidities.Fragment.DataFragment;
 import vancityinfo.vancityinfocommidities.Fragment.QuoteList;
 import vancityinfo.vancityinfocommidities.Fragment.QuoteDisplay;
 import vancityinfo.vancityinfocommidities.Model.Quote;
@@ -17,6 +19,8 @@ public class QuoteViewer extends ActionBarActivity implements
     //instance of QuoteDisplay
     private QuoteDisplay Display;
 
+    private DataFragment dataFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,19 +28,23 @@ public class QuoteViewer extends ActionBarActivity implements
 
         setTitle(R.string.app_name);
 
+        /* Fetch Data Fragment */
+
+
+
         /* Commodities List and Display Fragment Commit */
 
-            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        //adds fragment only when activity is created
 
-            QuoteList quoteList = QuoteList.getInstance();
-            Display = QuoteDisplay.getInstance();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
-            fragmentTransaction.add(R.id.commodities_view_container_list, quoteList);
-            fragmentTransaction.add(R.id.commodities_view_container_display, Display, "display");
+        QuoteList quoteList = QuoteList.getInstance();
+        Display = QuoteDisplay.getInstance();
 
-            fragmentTransaction.commit();
+        fragmentTransaction.replace(R.id.commodities_view_container_list, quoteList);
+        fragmentTransaction.replace(R.id.commodities_view_container_display, Display, "display");
 
-
+        fragmentTransaction.commit();
 
 
         //sets the SlidingPanelayout to open

@@ -127,7 +127,7 @@ public class CommodityParser {
             return 5;
         }
         else{
-            return 32;
+            return 10;
         }
     }
 

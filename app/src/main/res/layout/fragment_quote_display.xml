@@ -118,43 +118,51 @@
                     />
             </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/quote_display_date_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/quote_display_start_text"/>
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/quote_display_date_text"/>
 
                 <Button
                     android:id="@+id/quote_display_start_date_picker"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/quote_display_end_text"/>
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@id/quote_display_date_text"
+                    android:layout_margin="@dimen/ui_margin"/>
 
                 <Button
                     android:id="@+id/quote_display_end_date_picker"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/ui_margin"
+                    android:layout_toRightOf="@id/quote_display_start_date_picker"
+                    android:layout_alignBaseline="@id/quote_display_start_date_picker"/>
 
                 <ImageButton
                     android:id="@+id/quote_display_refresh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/ui_margin"
+                    android:layout_below="@id/quote_display_start_date_picker"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignBaseline="@id/quote_display_start_date_picker"
                     android:src="@drawable/ic_cached_white_36dp"/>
 
                 <com.androidplot.xy.XYPlot
                     android:id="@+id/quote_display_plot"
                     android:layout_width="fill_parent"
-                    android:layout_height="400dp"/>
+                    android:layout_height="400dp"
+                    android:layout_below="@id/quote_display_refresh"/>
 
-            </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 

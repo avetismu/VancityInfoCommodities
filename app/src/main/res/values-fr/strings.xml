@@ -8,7 +8,6 @@
     <string name="platinum">Platine</string>
 
     <!-- Quote Display -->
-    <string name="quote_display_end_text">Choisissez une date finale</string>
     <string name="quote_display_price_commodity_daily_text">Cours Quotidien : </string>
     <string name="quote_display_price_currency_daily_high_text">Haut Quotidien: </string>
     <string name="quote_display_price_currency_daily_low_text">Bas Quotidien: </string>
@@ -30,6 +29,7 @@
     <string name="steel">Acier</string>
     <string name="tin">Étain</string>
     <string name="iron">Fer</string>
+    <string name="quote_display_date_text">Choisissez une date initiale et une date finale</string>
 
 
 </resources>
